@@ -36,17 +36,32 @@ def get_data_frames(filename):
     return df, df2
 
 
-countries = ['Pakistan','India','China','Bangladesh','United Kingdom']
+countries = ['Japan','Germany','Canada','United Kingdom']
 
+#----------------------------------------------------------
+#Line plot 1
 df, df2 = get_data_frames('API_19_DS2_en_csv_v2_4700503.csv')
-df2 = df2.loc[df2['Indicator Code'].eq('EN.ATM.CO2E.SF.ZS')]
+df2 = df2.loc[df2['Indicator Code'].eq('EG.FEC.RNEW.ZS')]
 
-plt.figure(figsize=(6,7))
+plt.figure(figsize=(7,7))
 df2['Years'] = pd.to_numeric(df2['Years'])
-df2.plot("Years", countries, title='Co2')
+df2.plot("Years", countries, title='Renewable energy consumption (% of total final energy consumption)')
 plt.xlabel("Years")
-plt.ylabel("CO2 emissions from solid fuel consumption (% of total)")
-
+plt.ylabel("Renewable energy consumption ")
 plt.legend(loc='center left', bbox_to_anchor=(1, 0.5))
-
 plt.show()
+
+#-----------------------------------------
+# Line Plot 2
+data1, data2 = get_data_frames('API_19_DS2_en_csv_v2_4700503.csv')
+data2 = data2.loc[data2['Indicator Code'].eq('SP.POP.TOTL')]
+
+plt.figure(figsize=(7,7))
+data2['Years'] = pd.to_numeric(data2['Years'])
+data2.plot("Years", countries, title='Total population')
+plt.xlabel("Years")
+plt.ylabel("Total population")
+plt.legend(loc='center left', bbox_to_anchor=(1, 0.5))
+plt.show()
+
+

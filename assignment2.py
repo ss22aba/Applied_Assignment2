@@ -88,7 +88,7 @@ years = df2_bar['Years'].tolist()
 
 plt.figure(dpi=144)
 #To show main title of plot.
-plt.title('Agricultural land (sq. km)')
+plt.title('Agricultural land (% of land area)')
 # x is used for grouped bar chart. x is the position of 1 bar.
 # x+0.2, x-0.2, x-0.4 these postion are used to show bar charts in groups.
 plt.bar(x, df2_bar['Japan'], width, label='Japan')
@@ -139,4 +139,34 @@ plt.xlabel('Years')
 plt.ylabel('Forest area (% of land area)')
 # legend function is called to make labels visibles on the chart like Seanson names.
 plt.legend(loc='center left', bbox_to_anchor=(1, 0.5))
+plt.show()
+
+#------------------------------------------------------------------------------
+# Pie chart
+
+df, df2 = get_data_frames('API_19_DS2_en_csv_v2_4700503.csv')
+df2 = df2.loc[df2['Indicator Code'].eq('SP.POP.GROW')]
+df2.dropna()
+print(df2.info())
+
+Japan= np.sum(df2['Japan'])
+Canada= np.sum(df2['Canada'])
+
+Germany=np.sum(df2['Germany'])
+uk= np.sum(df2["United Kingdom"])
+
+total= Japan +Canada+uk+Germany
+
+Japan= Japan/ total*100
+Canada= Canada/ total*100
+
+
+uk= uk/ total*100
+
+methane_emission= np.array([Japan,Canada,uk,Germany])
+
+
+plt.figure(dpi=144)
+plt.pie(methane_emission, labels= countries,autopct=('%1.1f%%'))# We used autopct for showing percantages on piechart
+plt.title("Co2 emissions from solid fuel consumption (% of total)") # This function is for showing title of data
 plt.show()

@@ -6,65 +6,115 @@ Created on Wed Dec  7 18:20:49 2022
 @author: asus
 """
 
+"""
+Imported reqired libraries
+"""
 import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
 
 def get_data_frames(filename):
-    '''
     
-
-    Parameters
-    ----------
-    filename : TYPE
-        DESCRIPTION.
-
-    Returns
-    -------
-    df : TYPE
-        DESCRIPTION.
-    df2 : TYPE
-        DESCRIPTION.
-
-    '''
+    """
+    The function get_data_frames takes filename as the 
+    argument read the data file
+    into dataframes and returns df(countries), df2(years).
+    
+    """ 
     df = pd.read_csv(filename, skiprows=(4), index_col=False)
-    df = df.loc[:, ~df.columns.str.contains('^Unnamed')]
-    df = df.loc[df['Country Name'].isin(countries)]
-    df2 = df.melt(id_vars=['Country Name','Country Code','Indicator Name','Indicator Code'], var_name='Years')
-    
-    del df2['Country Code']
-    df2 = df2.pivot_table('value',['Years','Indicator Name','Indicator Code'],'Country Name').reset_index()
+    print(df.info())
 
+#Removing the column containg "unnamed" as part of the data cleaning.
+    df = df.loc[:, ~df.columns.str.contains('^Unnamed')]
+   
+#Selecting the countries.
+    df = df.loc[df['Country Name'].isin(countries)]
+
+#Transposing the data
+    df2 = df.melt(id_vars=['Country Name','Country Code',
+                           'Indicator Name','Indicator Code'], 
+                  var_name='Years')
+
+#Deleted country code.    
+    del df2['Country Code']
+    
+# Transposing the data
+    df2 = df2.pivot_table('value',
+                          ['Years','Indicator Name','Indicator Code'],
+                          'Country Name').reset_index()
+    
+    print(df2.info())
+
+#Return countries and years.
     return df, df2
+
+#Removes all the rows cotaining the null values.
     df.dropna()
     df2.dropna()
 
+#The required countries for ploting the graphs are selected.
 countries = ['Japan','Germany','Canada','United Kingdom']
 
 #----------------------------------------------------------
-#Line plot 1
+
+#Generates the line plot for the renewable energy consumption ofr the selected
+#countries.
+
+#Read the file into dataframes.
 df, df2 = get_data_frames('API_19_DS2_en_csv_v2_4700503.csv')
+
+#The function the indicators
 df2 = df2.loc[df2['Indicator Code'].eq('EG.FEC.RNEW.ZS')]
 
+#Ploting the figure
 plt.figure(figsize=(7,7))
+
+
 df2['Years'] = pd.to_numeric(df2['Years'])
-df2.plot("Years", countries, title='Renewable energy consumption (% of total final energy consumption)')
+
+#Plots the line gragh also  the title is set.
+df2.plot("Years", countries, 
+         title='Renewable energy consumption(% of total final energy consumption)')
+
+# Setting the x label as Years.
 plt.xlabel("Years")
-plt.ylabel("Renewable energy consumption ")
+
+#Setting the y label as "Renewable energy consumption. 
+plt.ylabel("Renewable energy consumption")
+
+#Setting the legend
 plt.legend(loc='center left', bbox_to_anchor=(1, 0.5))
+
+#saving the figure.
+plt.savefig("Renewable  line plot")
+
+#Show the figure.
 plt.show()
 
-# #-----------------------------------------
-# # Line Plot 2
+# #----------------------------------------------------------------------------
+#Generates the line plot for the Total population of the selected
+#countries.
+
+#Read the file into dataframes.
 data1, data2 = get_data_frames('API_19_DS2_en_csv_v2_4700503.csv')
 data2 = data2.loc[data2['Indicator Code'].eq('SP.POP.TOTL')]
 
+# Plotting the figure.
+# X label and Y label is set.
+# Stting the title
 plt.figure(figsize=(7,7))
 data2['Years'] = pd.to_numeric(data2['Years'])
 data2.plot("Years", countries, title='Total population in %')
 plt.xlabel("Years")
 plt.ylabel("Total population in %")
+
+#setting the legend
 plt.legend(loc='center left', bbox_to_anchor=(1, 0.5))
+
+#save the figure
+plt.savefig("Population lie plot")
+
+#Shows the figure.
 plt.show()
 
 #------------------------------------------------------------------------------
@@ -113,7 +163,8 @@ print(df2_bar)
 data2_bar = data2_bar.loc[data2_bar['Indicator Code'].eq('AG.LND.FRST.ZS')]
 # loc function used to get data of specific years 2000-2005 from dataframe.
 print(data2_bar)
-data2_bar = data2_bar.loc[data2_bar['Years'].isin(['2000','2001','2002','2003','2004','2005'])]
+data2_bar = data2_bar.loc[data2_bar['Years'].
+                          isin(['2000','2001','2002','2003','2004','2005'])]
 
 print(data2_bar)
 
@@ -121,31 +172,43 @@ x = np.arange(6)
 width = 0.2
 years = data2_bar['Years'].tolist()
 
+#P
 plt.figure(dpi=144)
+
 #To show main title of plot.
 plt.title('Forest area (% of land area)')
+
 # x is used for grouped bar chart. x is the position of 1 bar.
 # x+0.2, x-0.2, x-0.4 these postion are used to show bar charts in groups.
 plt.bar(x, data2_bar['Japan'], width, label='Japan')
 plt.bar(x+0.2, data2_bar['Germany'], width, label='Germany')
 plt.bar(x-0.2, data2_bar['Canada'], width, label='Canada')
 plt.bar(x+0.4, data2_bar['United Kingdom'], width, label='United Kingdom')
+
 # xticks are used to show years on x-axis of the plot.
 plt.xticks(x, years)
-# plt.yticks(np.arange(100,1000,200))
+
 # x-axis label
 plt.xlabel('Years')
+
 # y-axis label
 plt.ylabel('Forest area (% of land area)')
-# legend function is called to make labels visibles on the chart like Seanson names.
+
+#Legend function is called to make labels visibles on the chart.
 plt.legend(loc='center left', bbox_to_anchor=(1, 0.5))
+
+#The function to show the figure.
 plt.show()
 
 #------------------------------------------------------------------------------
-# Pie chart
+# Plotting the  pie chart of population growth for the countries : Japan, UK
+#Canada and Germany
 
+#Read the file into dataframes.
 df, df2 = get_data_frames('API_19_DS2_en_csv_v2_4700503.csv')
 df2 = df2.loc[df2['Indicator Code'].eq('SP.POP.GROW')]
+
+#removing all the nan values.
 df2.dropna()
 print(df2.info())
 
@@ -159,14 +222,20 @@ total= Japan +Canada+uk+Germany
 
 Japan= Japan/ total*100
 Canada= Canada/ total*100
-
-
+Germany=Germany/ total*100
 uk= uk/ total*100
 
-methane_emission= np.array([Japan,Canada,uk,Germany])
+population_growth = np.array([Japan,Canada,uk,Germany])
 
-
+#Plot the figure
 plt.figure(dpi=144)
-plt.pie(methane_emission, labels= countries,autopct=('%1.1f%%'))# We used autopct for showing percantages on piechart
-plt.title("Co2 emissions from solid fuel consumption (% of total)") # This function is for showing title of data
+plt.pie(population_growth, labels= countries,autopct=('%1.1f%%'))
+
+#Set the title
+plt.title("Population growth (annual %)")
+
+#Save the figure
+plt.savefig("populationgrowth_pie")
+
+#Show the figure
 plt.show()

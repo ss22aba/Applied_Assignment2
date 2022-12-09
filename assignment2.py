@@ -64,7 +64,7 @@ countries = ['Japan','Germany','Canada','United Kingdom']
 df, df2 = get_data_frames('API_19_DS2_en_csv_v2_4700503.csv')
 
 #The function the indicators
-df2 = df2.loc[df2['Indicator Code'].eq('EG.FEC.RNEW.ZS')]
+df2 = df2.loc[df2['Indicator Code'].eq('SP.URB.TOTL.IN.ZS')]
 
 #Ploting the figure
 plt.figure(figsize=(7,7))
@@ -74,7 +74,7 @@ df2['Years'] = pd.to_numeric(df2['Years'])
 
 #Plots the line gragh also  the title is set.
 df2.plot("Years", countries, title=
-         'Renewable energy consumption(% of total final energy consumption)')
+         'Urban population (% of total population)')
 
 # Setting the x label as Years.
 plt.xlabel("Years")
@@ -97,16 +97,16 @@ plt.show()
 
 #Read the file into dataframes.
 data1, data2 = get_data_frames('API_19_DS2_en_csv_v2_4700503.csv')
-data2 = data2.loc[data2['Indicator Code'].eq('SP.POP.TOTL')]
+data2 = data2.loc[data2['Indicator Code'].eq('EG.ELC.RNEW.ZS')]
 
 # Plotting the figure.
 # X label and Y label is set.
 # Stting the title
 plt.figure(figsize=(7,7))
 data2['Years'] = pd.to_numeric(data2['Years'])
-data2.plot("Years", countries, title='Total population in %')
+data2.plot("Years", countries, title='Renewable electricity output (% of total electricity output)')
 plt.xlabel("Years")
-plt.ylabel("Total population in %")
+plt.ylabel("Total population")
 
 #setting the legend
 plt.legend(loc='center left', bbox_to_anchor=(1, 0.5))

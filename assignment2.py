@@ -25,9 +25,8 @@ def get_data_frames(filename):
     df = pd.read_csv(filename, skiprows=(4), index_col=False)
     print(df.info())
     
-    
-    
-# statitical function returns the dercription of data in the dataframe.
+       
+#Statitical function returns the dercription of data in the dataframe.
     print(df.describe())
 
 #Removing the column containg "unnamed" as part of the data cleaning.
@@ -322,7 +321,7 @@ print(df2)
 #converting the data to csv file
 df2 = df2.to_csv("mean.csv")
 
-#------------------------------------------------------------------------------
+
 
 
 

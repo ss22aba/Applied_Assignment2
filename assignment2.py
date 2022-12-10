@@ -65,7 +65,7 @@ def get_data_frames(filename):
 #The required countries for ploting the graphs are selected.
 countries = ['Japan','Germany','Canada','United Kingdom']
 
-#----------------------------------------------------------
+#------------------------------------------------------------------------------
 
 #Generates the line plot for the renewable energy consumption of the selected
 #countries.

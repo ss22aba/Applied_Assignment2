@@ -25,6 +25,8 @@ def get_data_frames(filename):
     df = pd.read_csv(filename, skiprows=(4), index_col=False)
     print(df.info())
     
+    
+    
 # statitical function returns the dercription of data in the dataframe.
     print(df.describe())
 
@@ -51,6 +53,8 @@ def get_data_frames(filename):
     
 #Statatical function return the description of data in the dataframe
     print(df2.describe())
+    
+
 
 #Return countries and years.
     return df, df2
@@ -305,13 +309,22 @@ plt.savefig("Arableland_pie")
 plt.show()
 
 #------------------------------------------------------------------------------
-def linePlot() :
-    """
-     Function for the line plot. It plots the maximum, minimum and average 
-     
-     temperatures of 8 different cities.
-    """
+
 #Read the file into dataframes.
 df, df2 = get_data_frames('API_19_DS2_en_csv_v2_4700503.csv')
-df2 = df2.loc[df2['Indicator Code'].eq('AG.LND.ARBL.ZS')]
+df2 = df2.loc[df2['Indicator Code'].eq('EN.ATM.CO2E.LF.ZS')]
+df2_bar = df2_bar.loc[df2_bar['Years'].isin(['2020'])]
+
+#Statatical function return the mean of the co2 emission of the country.
+df2=df2[["Germany","United Kingdom","Canada","Japan"]].mean()
 print(df2)
+
+#converting the data to csv file
+df2 = df2.to_csv("mean.csv")
+
+#------------------------------------------------------------------------------
+
+
+
+
+

@@ -86,12 +86,12 @@ plt.ylabel("Urban population (% of total population)")
 plt.legend(loc='center left', bbox_to_anchor=(1, 0.5))
 
 #saving the figure.
-plt.savefig("Renewable  line plot")
+plt.savefig("urbanpopulation line plot")
 
 #Show the figure.
 plt.show()
 
-# #----------------------------------------------------------------------------
+#------------------------------------------------------------------------------
 #Generates the line plot for the Total population of the selected
 #countries.
 
@@ -113,7 +113,7 @@ plt.ylabel("Population, total")
 plt.legend(loc='center left', bbox_to_anchor=(1, 0.5))
 
 #save the figure
-plt.savefig("Population lie plot")
+plt.savefig("Population line plot")
 
 #Shows the figure.
 plt.show()
@@ -161,9 +161,12 @@ plt.ylabel('Agricultural land (% of land area)')
 
 # legend function is called to make labels visibles on the chart 
 plt.legend(loc='center left', bbox_to_anchor=(1, 0.5))
+
+#save and show the figure
+plt.savefig("Agricultural barplot")
 plt.show()
 
-#-----------------------------------------------------------------------
+#------------------------------------------------------------------------------
 #Plots the bar chart showing the Forest area(% of land area) for the countries:
 # Japan, UK, Germany, Canada.
 
@@ -206,6 +209,9 @@ plt.ylabel('Forest area (% of land area)')
 
 #Legend function is called to make labels visibles on the chart.
 plt.legend(loc='center left', bbox_to_anchor=(1, 0.5))
+
+#save the figure
+plt.savefig("Forest barplot")
 
 #The function to show the figure.
 plt.show()

@@ -7,11 +7,12 @@ Created on Wed Dec  7 18:20:49 2022
 """
 
 """
-Imported reqired libraries
+Imported required libraries
 """
 import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
+import scipy.stats as stats
 
 def get_data_frames(filename):
     
@@ -23,6 +24,9 @@ def get_data_frames(filename):
     """ 
     df = pd.read_csv(filename, skiprows=(4), index_col=False)
     print(df.info())
+    
+# statitical function returns the dercription of data in the dataframe.
+    print(df.describe())
 
 #Removing the column containg "unnamed" as part of the data cleaning.
     df = df.loc[:, ~df.columns.str.contains('^Unnamed')]
@@ -44,6 +48,9 @@ def get_data_frames(filename):
                           'Country Name').reset_index()
     
     print(df2.info())
+    
+#Statatical function return the description of data in the dataframe
+    print(df2.describe())
 
 #Return countries and years.
     return df, df2
@@ -122,6 +129,7 @@ plt.show()
 #Plots the bar chart showing the Agricultural land (% of land area) for the
 #countries : UK, Canada, Germany,Japan.
 
+#Read the file into dataframes.
 df_bar, df2_bar = get_data_frames('API_19_DS2_en_csv_v2_4700503.csv')
 print(df2_bar)
 df2_bar = df2_bar.loc[df2_bar['Indicator Code'].eq('AG.LND.AGRI.ZS')]
@@ -295,3 +303,15 @@ plt.savefig("Arableland_pie")
 
 #Show the figure
 plt.show()
+
+#------------------------------------------------------------------------------
+def linePlot() :
+    """
+     Function for the line plot. It plots the maximum, minimum and average 
+     
+     temperatures of 8 different cities.
+    """
+#Read the file into dataframes.
+df, df2 = get_data_frames('API_19_DS2_en_csv_v2_4700503.csv')
+df2 = df2.loc[df2['Indicator Code'].eq('AG.LND.ARBL.ZS')]
+print(df2)

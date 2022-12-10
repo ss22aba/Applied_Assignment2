@@ -312,14 +312,40 @@ plt.show()
 #Read the file into dataframes.
 df, df2 = get_data_frames('API_19_DS2_en_csv_v2_4700503.csv')
 df2 = df2.loc[df2['Indicator Code'].eq('EN.ATM.CO2E.LF.ZS')]
-df2_bar = df2_bar.loc[df2_bar['Years'].isin(['2020'])]
+df2 = df2.loc[df2['Years'].isin(['2020'])]
 
-#Statatical function return the mean of the co2 emission of the country.
+#Statatical function return the mean of the co2 emission of the countries.
 df2=df2[["Germany","United Kingdom","Canada","Japan"]].mean()
 print(df2)
 
 #converting the data to csv file
 df2 = df2.to_csv("mean.csv")
+
+#------------------------------------------------------------------------------
+def print_stats(rate):
+    """ Function used to calculate average, standard deviation, 
+    skewness and krtosisof the co2 emission of the countries
+    Uses numpy and scipy.stats"""
+    
+    df, df2 = get_data_frames('API_19_DS2_en_csv_v2_4700503.csv')
+    df2 = df2.loc[df2['Indicator Code'].eq('EN.ATM.CO2E.LF.ZS')]
+    df2 = df2.loc[df2['Years'].isin(['2020'])]
+    
+    print("average: ", np.average(rate))
+    print("std. deviations:", np.std(rate))
+    print("skewness: ", stats.skew(rate))
+    print("kurtosis: ", stats.kurtosis(rate))
+    return
+
+print("Germany")
+print_stats(df2["Germany"])
+print("Canada")
+print_stats(df2["Canada"])
+print("United Kingdom")
+print_stats(df2["United Kingdom"])
+print("Japan")
+print_stats(df2["Japan"])
+
 
 
 

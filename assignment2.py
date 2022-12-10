@@ -57,7 +57,7 @@ countries = ['Japan','Germany','Canada','United Kingdom']
 
 #----------------------------------------------------------
 
-#Generates the line plot for the renewable energy consumption ofr the selected
+#Generates the line plot for the renewable energy consumption of the selected
 #countries.
 
 #Read the file into dataframes.
@@ -80,7 +80,7 @@ df2.plot("Years", countries, title=
 plt.xlabel("Years")
 
 #Setting the y label as "Renewable energy consumption. 
-plt.ylabel("Renewable energy consumption")
+plt.ylabel("Urban population (% of total population)")
 
 #Setting the legend
 plt.legend(loc='center left', bbox_to_anchor=(1, 0.5))
@@ -97,16 +97,17 @@ plt.show()
 
 #Read the file into dataframes.
 data1, data2 = get_data_frames('API_19_DS2_en_csv_v2_4700503.csv')
-data2 = data2.loc[data2['Indicator Code'].eq('EG.ELC.RNEW.ZS')]
+data2 = data2.loc[data2['Indicator Code'].eq('SP.POP.TOTL')]
 
 # Plotting the figure.
 # X label and Y label is set.
 # Stting the title
 plt.figure(figsize=(7,7))
 data2['Years'] = pd.to_numeric(data2['Years'])
-data2.plot("Years", countries, title='Renewable electricity output (% of total electricity output)')
+data2.plot("Years", countries, title= 
+           'Population, total')
 plt.xlabel("Years")
-plt.ylabel("Total population")
+plt.ylabel("Population, total")
 
 #setting the legend
 plt.legend(loc='center left', bbox_to_anchor=(1, 0.5))

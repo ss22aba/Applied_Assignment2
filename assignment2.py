@@ -312,7 +312,6 @@ plt.show()
 #Read the file into dataframes.
 df, df2 = get_data_frames('API_19_DS2_en_csv_v2_4700503.csv')
 df2 = df2.loc[df2['Indicator Code'].eq('EN.ATM.CO2E.LF.ZS')]
-df2 = df2.loc[df2['Years'].isin(['2020'])]
 
 #Statatical function return the mean of the co2 emission of the countries.
 df2=df2[["Germany","United Kingdom","Canada","Japan"]].mean()
@@ -329,8 +328,7 @@ def print_stats(rate):
     
     df, df2 = get_data_frames('API_19_DS2_en_csv_v2_4700503.csv')
     df2 = df2.loc[df2['Indicator Code'].eq('EN.ATM.CO2E.LF.ZS')]
-    df2 = df2.loc[df2['Years'].isin(['2020'])]
-    
+   
     print("average: ", np.average(rate))
     print("std. deviations:", np.std(rate))
     print("skewness: ", stats.skew(rate))

@@ -182,15 +182,12 @@ plt.show()
 # Japan, UK, Germany, Canada.
 
 data_bar, data2_bar = get_data_frames('API_19_DS2_en_csv_v2_4700503.csv')
-print(df2_bar)
+
 data2_bar = data2_bar.loc[data2_bar['Indicator Code'].eq('AG.LND.FRST.ZS')]
-print(data2_bar)
 
 # loc function used to get data of specific years 2000-2005 from dataframe.
 data2_bar = data2_bar.loc[data2_bar['Years'].
                           isin(['2000','2001','2002','2003','2004','2005'])]
-
-print(data2_bar)
 
 x = np.arange(6)
 width = 0.2
@@ -321,28 +318,20 @@ print(df2)
 df2 = df2.to_csv("mean.csv")
 
 #------------------------------------------------------------------------------
-def print_stats(rate):
-    """ Function used to calculate average, standard deviation, 
-    skewness and krtosisof the co2 emission of the countries
-    Uses numpy and scipy.stats"""
-    
-    df, df2 = get_data_frames('API_19_DS2_en_csv_v2_4700503.csv')
-    df2 = df2.loc[df2['Indicator Code'].eq('EN.ATM.CO2E.LF.ZS')]
-   
-    print("average: ", np.average(rate))
-    print("std. deviations:", np.std(rate))
-    print("skewness: ", stats.skew(rate))
-    print("kurtosis: ", stats.kurtosis(rate))
-    return
 
-print("Germany")
-print_stats(df2["Germany"])
-print("Canada")
-print_stats(df2["Canada"])
-print("United Kingdom")
-print_stats(df2["United Kingdom"])
-print("Japan")
-print_stats(df2["Japan"])
+#Read the file into dataframes.
+df, df2 = get_data_frames('API_19_DS2_en_csv_v2_4700503.csv')
+df2 = df2.loc[df2['Indicator Code'].eq('EN.ATM.CO2E.LF.ZS')]
+print(df2)
+plt.figure(dpi=144)
+
+#plotting the histogram
+df2_hist=df2.hist(column="Japan")
+plt.title("Skewness for the Co2 emmision liquid fuel consumption in Japan")
+
+#Statatical function for skewness
+print("skewness for the Japan is ", stats.skew(df2['Japan']))
+
 
 
 
